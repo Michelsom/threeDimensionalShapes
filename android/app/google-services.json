@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1059213683644",
+    "firebase_url": "https://dimensionalshapes-eccf3-default-rtdb.firebaseio.com",
+    "project_id": "dimensionalshapes-eccf3",
+    "storage_bucket": "dimensionalshapes-eccf3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059213683644:android:e9415567152e02da3999b9",
+        "android_client_info": {
+          "package_name": "com.threedimensionalshapes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCppIAcVkccPFIVYfaMQzDIdZzuKGMEoZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
