@@ -6,9 +6,11 @@ export const useViewModelAuth = () => {
     useContext(AuthContext);
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
+
   async function loginWithEmail() {
     signInWithEmailAndPass(userEmail, password);
   }
+
   return {
     signInWithEmailAndPass,
     userEmail,
