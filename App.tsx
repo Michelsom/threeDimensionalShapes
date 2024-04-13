@@ -4,17 +4,19 @@
  *
  * @format
  */
-import { NavigationContainer, ThemeProvider } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import { AppProvider } from './src/context/app';
 import { AuthProvider } from './src/context/auth';
-import { colors } from './src/global/styles/theme';
+import theme from './src/global/styles/theme';
 import { Routes } from './src/routes';
 export function App(): React.JSX.Element {
   return (
     <AuthProvider>
       <NavigationContainer>
         <AppProvider>
-          <ThemeProvider value={{ dark: false, colors }}>
+          <ThemeProvider theme={theme}>
             <Routes />
           </ThemeProvider>
         </AppProvider>
