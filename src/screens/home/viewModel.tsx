@@ -1,5 +1,6 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useContext, useState } from 'react';
+import { View } from 'react-native';
 import { colorsToPick } from '../../common/colors';
 import { selectShape } from '../../common/shapeType';
 import { velocity } from '../../common/velocity';
@@ -18,7 +19,7 @@ export const useViewModelHome = () => {
   let transformInArray = userData
     ? Object.keys(userData).map(key => ({ id: key, ...userData[key] }))
     : [];
-  function navigateToSettings(item: any) {
+  function navigateToSettings(item?: any) {
     setIsAnimating(false)
     navigate('Settings', { item });
   }
@@ -26,7 +27,6 @@ export const useViewModelHome = () => {
   function selectShapeTypeFn() {
     setShapeType(prevState => (prevState >= 3 ? 1 : prevState + 1));
   }
-
   function selectColor(setColorNumber: React.Dispatch<React.SetStateAction<number>>, setColor: React.Dispatch<React.SetStateAction<string>>, colorNumber: number) {
     setColorNumber(prevState => prevState + 1);
     setColor(colorsToPick[colorNumber].color);
@@ -43,32 +43,27 @@ export const useViewModelHome = () => {
           shapeType={selectShape[shapeType]}
         />
         <S.Row>
-          <S.Button
-            onPress={() => {
-              setRotation((prevState) => prevState >= 0.07 ? 0.01 : prevState + 0.03);
-            }}>
-            <S.Title>{velocity[rotation]}</S.Title>
-          </S.Button>
-          <S.Button
-            onPress={() => {
-              selectColor(setColorNumber, setColor, colorNumber);
-            }}>
+          <View style={{ position: 'absolute', left: 8, bottom: 0, }}>
+            <S.Content>
+              <S.Title>{velocity[rotation]}</S.Title>
+            </S.Content>
             <S.ColorBox color={color} />
-          </S.Button>
-          <S.Button
-            onPress={selectShapeTypeFn}>
-            <S.Title numberOfLines={1}>{selectShape[shapeType]}</S.Title>
-          </S.Button>
+            <S.ContentText>
+              <S.Title numberOfLines={1}>{selectShape[shapeType]}</S.Title>
+            </S.ContentText>
+          </View>
           <S.Button
             onPress={() => {
               navigateToSettings(item);
             }}>
-            <S.Title>Editar</S.Title>
+            <S.TitleButton>Editar</S.TitleButton>
           </S.Button>
         </S.Row>
       </S.CenterBox >
     );
   };
+
+  const RenderFooterComponent = () => <S.Separator />;
   useFocusEffect(useCallback(() => {
     getDataUser()
   }, []))
@@ -83,6 +78,7 @@ export const useViewModelHome = () => {
     clearAllData,
     loadingSendData,
     transformInArray,
+    RenderFooterComponent
   };
 };
 

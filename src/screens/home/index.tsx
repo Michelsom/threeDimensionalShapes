@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
+import { GlobalButton } from '../../components/Button';
 import { GlobalLoading } from '../../components/LoadingGlobal';
-import { ButtonCreateShape } from './components/ButtonCreateShape';
 import { HeaderComponent } from './components/HeaderComponent';
 import { RenderEmptyComponent } from './components/RenderEmptyComponent';
 import * as S from './styles';
@@ -13,10 +13,11 @@ export const Home = () => {
     loadingSendData,
     transformInArray,
     clearAllData,
-    userData
+    userData,
+    navigateToSettings,
+    RenderFooterComponent
   } = useViewModelHome();
 
-  const RenderFooterComponent = () => <S.Separator />;
   if (loadingSendData) return <GlobalLoading text='Aguarde...' />;
 
   return (
@@ -36,9 +37,17 @@ export const Home = () => {
             ListFooterComponent={<RenderFooterComponent />}
           />
         </View>
-
       </S.Container>
-      <ButtonCreateShape />
+      <S.ButtonContainer>
+        <GlobalButton
+          color='secondaryColor'
+          handleButton={navigateToSettings}
+          text='Nova forma'
+          type='solid'
+          width={100}
+          disable={transformInArray.length > 9}
+        />
+      </S.ButtonContainer>
     </S.SafeArea>
   );
 };
