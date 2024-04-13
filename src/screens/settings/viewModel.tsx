@@ -4,15 +4,17 @@ import { Text } from 'react-native';
 import { selectShape } from '../../common/shapeType';
 import { velocity } from '../../common/velocity';
 import { AppContext } from '../../context/app';
+import theme from '../../global/styles/theme';
 import * as S from './styles';
 
 export const useViewModelSettings = () => {
-  const { params } = useRoute()
+  const { params } = useRoute();
   const { goBack, navigate } = useNavigation();
   const [selectColor, setSelectColor] = useState('');
   const [selectShapeType, setSelectShapeType] = useState(0);
   const [selectRotation, setSelectRotation] = useState(0);
-  const { editDataUser, createDataUser, setLoadingSendData, setUserData } = useContext(AppContext);
+  const { editDataUser, createDataUser, setLoadingSendData, setUserData } =
+    useContext(AppContext);
 
   function clearData() {
     setSelectColor('');
@@ -31,51 +33,70 @@ export const useViewModelSettings = () => {
         color={item.color}>
         <S.ContentOpacity
           color={item.color}
-          isPicked={selectColor === item.color}
-        ></S.ContentOpacity>
+          isPicked={selectColor === item.color}></S.ContentOpacity>
       </S.PickYourColor>
     );
   };
 
   const renderItemVelocity = ({ item }: any) => {
     return (
-      <S.PickShapeType
+      <S.PickFormShapeType
         selected={selectRotation === item.rotation}
         onPress={() => {
           setSelectRotation(item.rotation);
         }}>
-        <Text>{velocity[item.rotation]}</Text>
-      </S.PickShapeType>
+        <Text
+          style={{
+            color:
+              selectRotation === item.rotation
+                ? theme.colors.lightColor
+                : theme.colors.inputLabel,
+            fontWeight: 500,
+            fontSize: 16
+          }}>
+          {velocity[item.rotation]}
+        </Text>
+      </S.PickFormShapeType>
     );
   };
 
   const renderItemShapes = ({ item }: any) => {
     return (
-      <S.PickShapeType
+      <S.PickFormShapeType
         selected={selectShapeType === item.shapeType}
         onPress={() => {
           setSelectShapeType(item.shapeType);
         }}>
-        <Text>{selectShape[item.shapeType]}</Text>
-      </S.PickShapeType>
+        <Text
+          style={{
+            color:
+              selectShapeType === item.shapeType
+                ? theme.colors.lightColor
+                : theme.colors.inputLabel,
+            fontWeight: 500,
+            fontSize: 16
+          }}>
+          {selectShape[item.shapeType]}
+        </Text>
+      </S.PickFormShapeType>
     );
   };
 
   async function editDataFn() {
-    setLoadingSendData(true)
-    setUserData([])
+    setLoadingSendData(true);
+    setUserData([]);
     let newData = {
       color: selectColor,
       rotation: selectRotation,
       shapeType: selectShapeType,
     };
-    if (params) {
+    if (params?.item) {
       editDataUser(params.item.id, newData);
     } else {
-      createDataUser(newData)
+      createDataUser(newData);
     }
     navigate('Home');
-    setLoadingSendData(false)
+    setLoadingSendData(false);
   }
 
   return {
@@ -87,5 +108,6 @@ export const useViewModelSettings = () => {
     selectColor,
     selectShapeType,
     editDataFn,
+    params,
   };
 };
