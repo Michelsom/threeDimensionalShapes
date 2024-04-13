@@ -17,7 +17,7 @@ interface AppContextData {
 
 export const AppContext = createContext<AppContextData>({} as AppContextData);
 
-export const AppProvider: React.FC = ({ children }: any) => {
+export const AppProvider = ({ children }: any) => {
   const { clearAppData, getUserData, uidUser } = useContext(AuthContext);
   const [userData, setUserData] = useState();
   const [isAnimating, setIsAnimating] = useState(true);
