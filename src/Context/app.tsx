@@ -22,20 +22,17 @@ export const AppProvider: React.FC = ({ children }: any) => {
   const [userData, setUserData] = useState();
   const [isAnimating, setIsAnimating] = useState(true);
   const [loadingSendData, setLoadingSendData] = useState(false);
-  console.log(uidUser)
   function clearAllData() {
     clearAppData();
-    // setUserData();
+    setUserData();
   }
   async function editDataUser(id: string, data: any) {
     try {
-      console.log(id, data)
       setLoadingSendData(true)
       database()
         .ref(`/users/${uidUser}/${id}`)
         .set(data)
     } catch (error: any) {
-      console.log('=====>>>', error)
     } finally {
       setLoadingSendData(false)
     }
@@ -43,13 +40,11 @@ export const AppProvider: React.FC = ({ children }: any) => {
 
   async function createDataUser(data: any) {
     try {
-      console.log('createDataUser', uidUser)
       setLoadingSendData(true)
       database()
         .ref(`/users/${uidUser}`)
         .push(data)
     } catch (error: any) {
-      console.log('dentro de catch=====>>>', error)
     } finally {
       setLoadingSendData(false)
     }
@@ -60,7 +55,6 @@ export const AppProvider: React.FC = ({ children }: any) => {
       .ref(`/users/${uidUser}`)
       .on('value', snapshot => {
         const data = snapshot.val();
-        console.log(`-------`, data)
         setUserData(data);
       });
   }
