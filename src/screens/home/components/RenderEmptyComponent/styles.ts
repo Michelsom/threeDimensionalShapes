@@ -7,7 +7,7 @@ export const ContentEmptyComponent = styled.TouchableOpacity`
   align-items: center;
 `;
 export const TextAddShape = styled.Text`
-  color: #212121;
+  color: ${({theme}) => theme.colors.colorText};
   font-size: 16px;
   font-weight: 600;
 `;

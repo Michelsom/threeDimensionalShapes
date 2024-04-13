@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 import styled from 'styled-components/native';
 
 export const GlobalViewActivityIndicator = styled.View`
@@ -11,7 +11,7 @@ export const GlobalViewActivityIndicator = styled.View`
   background: #fff;
 `;
 export const GlobalText = styled.Text`
-  color:#212121;
+  color: ${({theme}) => theme.colors.colorText};
   font-size: 18px;
   margin-top: 20px;
 `;
