@@ -35,7 +35,6 @@ export const AuthProvider: React.FC = ({ children }: any) => {
       const { user } = await auth().signInWithEmailAndPassword(email, password);
       setUser(user);
       await AsyncStorage.setItem('@Pigz:userFire', JSON.stringify(user))
-      // getUserData;
     } catch (error: any) {
       setErrorText(`Email ou Senha incorretos!`);
       setError(true);

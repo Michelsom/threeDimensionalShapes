@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useContext, useState } from 'react';
 import { colorsToPick } from '../../common/colors';
 import { selectShape } from '../../common/shapeType';
 import { velocity } from '../../common/velocity';
@@ -14,7 +14,7 @@ export const useViewModelHome = () => {
   const [rotation, setRotation] = useState(0.04);
   const [colorNumber, setColorNumber] = useState<number>(1);
   const { navigate } = useNavigation();
-  const { userData, clearAllData, setIsAnimating, loadingSendData } = useContext(AppContext);
+  const { userData, clearAllData, setIsAnimating, loadingSendData, getDataUser } = useContext(AppContext);
   let transformInArray = userData
     ? Object.keys(userData).map(key => ({ id: key, ...userData[key] }))
     : [];
@@ -69,7 +69,9 @@ export const useViewModelHome = () => {
       </S.CenterBox >
     );
   };
-
+  useFocusEffect(useCallback(() => {
+    getDataUser()
+  }, []))
   return {
     navigateToSettings,
     color,
